@@ -1,90 +1,136 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
+import Slider, { Range } from 'rc-slider';
 
 import './index.css';
+import 'rc-slider/assets/index.css';
 
 class Canvas extends React.Component {
   constructor(props) {
     super(props);
-    this.start = false;
     this.node = React.createRef();
+    this.start = false;
     this.canvas = null;
     this.ctx = null;
-    this.cube = {
-      x: 0,
-      y: 0,
-      r: 20,
-      vx: 1,
-      vy: 1,
+    this.speed = 10;
+    this.vx = this.speed;
+    this.vy = this.speed;
+    this.ball = {
+      r: 10,
+      x: 100,
+      y: 100,
     };
-
   }
 
   componentDidMount() {
     this.canvas = findDOMNode(this.node.current);
     this.ctx = this.canvas.getContext('2d');
-    this.renderCanvas();
+    this.renderCanvasMain();
   }
 
   handleStart = () => {
     this.start = true;
-    this.renderCanvas();
+    this.renderCanvasMain();
   }
 
-  renderCube = () => {
-    let { x, y, r, vx, vy } = this.cube;
+  handlePause = () => {
+    this.start = false;
+  }
+
+  handleReset = () => {
+    this.state = false;
+    this.ball.x = 100;
+    this.ball.y = 100;
+    this.vx = this.speed;
+    this.vy = this.speed;
+    this.renderCanvasMain();
+  }
+
+  drawCircle = (x, y, r) => {
+    const ctx = this.ctx;
+    ctx.fillStyle = 'green';
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0 , Math.PI * 2, true);
+    ctx.fill();
+  }
+
+  renderBall = () => {
+    let { x, y, r } = this.ball;
 
     /** render */
-    this.ctx.fillStyle = 'green';
-    this.ctx.fillRect(x, y, r, r);
+    this.drawCircle(x, y, r);
 
     /** update position (x, y) */
-    const dx = 5;
-    const dy = 5;
+    let xNext = x + this.vx;
+    let yNext = y + this.vy;
 
-    let xNext = x + vx * dx;
-    let yNext = y + vy * dy;
-
-    if (xNext >= this.canvas.width - r || xNext <= 0) {
-      this.cube.vx = vx * (-1);
-      xNext = x + this.cube.vx * dx;
+    if (xNext >= this.canvas.width - r || xNext <= r) {
+      this.vx = -this.vx;
+      xNext = x + this.vx;
     }
-    if (yNext >= this.canvas.height - r || yNext <= 0) {
-      this.cube.vy = vy * (-1);
-      yNext = y + this.cube.vy * dy;
+    if (yNext >= this.canvas.height - r || yNext <= r) {
+      this.vy = -this.vy;
+      yNext = y + this.vy;
     }
 
-    this.cube.x = xNext;
-    this.cube.y = yNext;
+    this.ball.x = xNext;
+    this.ball.y = yNext;
 
     if (this.start) {
-      requestAnimationFrame(this.renderCanvas);
+      requestAnimationFrame(this.renderCanvasMain);
     }
   }
 
-  renderCanvas = () => {
-    this.ctx.fillStyle = 'black';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+  renderPaddle = (w, h) => {
+    const ctx = this.ctx;
+    const paddleStartHeight = this.canvas.height / 2 - h / 2;
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, paddleStartHeight, w, h);
+  }
 
-    this.ctx.fillStyle = 'red';
-    const recLength = 100;
-    this.ctx.fillRect(
-      (this.canvas.width - recLength) / 2,
-      (this.canvas.height - recLength) / 2,
-      recLength,
-      recLength
-    )
+  renderBackground = () => {
+    const ctx = this.ctx;
+    ctx.fillStyle = '#222';
+    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+  }
 
-    this.renderCube();
+  renderCanvasMain = () => {
+    this.renderBackground();
+    this.renderPaddle(10, 100);
+    this.renderBall();
   }
 
   render() {
     return (
       <div>
         <div className="canvas-title">
-          Click
-          <button className="canvas-start-button" onClick={this.handleStart}>Start</button>
-          to kick off canvas animation
+          <button
+            className="canvas-button"
+            onClick={this.handleStart}
+          >
+            Start
+          </button>
+          <button
+            className="canvas-button"
+            onClick={this.handlePause}
+          >
+            Pause
+          </button>
+          <button
+            className="canvas-button"
+            onClick={this.handleReset}
+          >
+            Reset
+          </button>
+          {/* <div className="canvas-speed-slider">
+            <Slider
+              value={this.state.speed}
+              onChange={this.handleSpeedChange}
+              max={10}
+              min={1}
+            />
+          </div> */}
+          <span>Click buttons to kick off canvas animation</span>
         </div>
         <canvas
           ref={this.node}
