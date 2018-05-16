@@ -1,6 +1,8 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 
+import './index.css';
+
 class Canvas extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +23,11 @@ class Canvas extends React.Component {
   componentDidMount() {
     this.canvas = findDOMNode(this.node.current);
     this.ctx = this.canvas.getContext('2d');
+    this.renderCanvas();
+  }
+
+  handleStart = () => {
+    this.start = true;
     this.renderCanvas();
   }
 
@@ -74,11 +81,10 @@ class Canvas extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <button onClick={() => {
-            this.start = true;
-            this.renderCanvas();
-          }}>Start</button>
+        <div className="canvas-title">
+          Click
+          <button className="canvas-start-button" onClick={this.handleStart}>Start</button>
+          to kick off canvas animation
         </div>
         <canvas
           ref={this.node}
