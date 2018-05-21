@@ -1,0 +1,26 @@
+.canvas-title {
+  padding: 12px 0;
+}
+
+.canvas-button {
+  padding: 5px 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+  vertical-align: midle;
+  background-image: linear-gradient(to bottom, #00a7e6 0%, #0096cc 100%);
+  background-repeat: repeat-x;
+  border-color: #0095ce;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  user-select: none;
+  cursor: pointer;
+  color: #fff;
+  margin: 0 4px;
+  outline: none;
+}
+
+.canvas-speed-slider {
+  display: inline-block;
+  width: 200px;
+}

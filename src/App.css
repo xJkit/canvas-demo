@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  height: 100vh;
+  overflow-y: hidden;
 }
 
 .App-logo {
@@ -16,6 +18,28 @@
 
 .App-title {
   font-size: 1.5em;
+}
+
+.main {
+  display: flex;
+  height: 100vh;
+}
+
+.sider {
+  flex: 0 0 200px;
+  background-color: #eee;
+  list-style-type: none;
+  color: #222;
+  margin: 0;
+  padding: 4px;
+}
+
+.sider > li {
+  padding: 5px 12px;
+}
+
+.content {
+  flex: 1;
 }
 
 @keyframes App-logo-spin {
