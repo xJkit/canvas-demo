@@ -58,11 +58,13 @@ class Ch7Ex3 extends React.Component {
     return (
       <div>
         <h2>CH7EX3 : Audio Properties And The Canvas</h2>
-        <audio
-          id="the-audio"
-          src={mp3}
-          controls
-        />
+        <div>
+          <audio
+            id="the-audio"
+            src={mp3}
+            controls
+          />
+        </div>
         <canvas
           id="the-canvas"
           width="700"
