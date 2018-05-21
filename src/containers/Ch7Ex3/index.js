@@ -22,16 +22,16 @@ class Ch7Ex3 extends React.Component {
   }
 
   renderCanvas = () => {
+    const { width, height } = this.canvas;
     /* background */
     this.ctx.fillStyle = '#222';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillRect(0, 0, width, height);
     this.ctx.strokeStyle = "#eee";
-    this.ctx.strokeRect(5,  5, this.canvas.width-10, this.canvas.height-10);
+    this.ctx.strokeRect(5,  5, width-10, height-10);
     // render text
     this.renderCanvasText();
 
-    // play audio
-
+    // loop
     requestAnimationFrame(this.renderCanvas);
   }
 
