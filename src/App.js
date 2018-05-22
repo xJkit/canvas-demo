@@ -9,6 +9,7 @@ import Home from './containers/Home';
 import BasicExample from './containers/BasicExample';
 import Ch7Ex3 from './containers/Ch7Ex3';
 import Ch7Ex6 from './containers/Ch7Ex6';
+import Ch7Ex7 from './containers/Ch7Ex7';
 
 class App extends Component {
   render() {
@@ -38,6 +39,11 @@ class App extends Component {
                 Ch7-Ex6
               </NavLink>
             </li>
+            <li>
+              <NavLink to="/ch7-ex7">
+                Ch7-Ex7
+              </NavLink>
+            </li>
           </ul>
           <div className="content">
             <Route
@@ -56,6 +62,10 @@ class App extends Component {
             <Route
               path="/ch7-ex6"
               component={Ch7Ex6}
+            />
+            <Route
+              path="/ch7-ex7"
+              component={Ch7Ex7}
             />
           </div>
         </div>

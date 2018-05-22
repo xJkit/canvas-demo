@@ -12,6 +12,7 @@ const STATE_LOADING = 'STATE_LOADING';
 const STATE_RESET = 'STATE_RESET';
 const STATE_PLAYING = 'STATE_PLAYING';
 
+
 /** align config */
 const ALIEN_START_X = 25;
 const ALIEN_START_Y = 25;
@@ -19,7 +20,7 @@ const ALIEN_ROWS = 5;
 const ALIEN_COLS = 8;
 const ALIEN_SPACING = 40;
 
-class Ch7Ex6 extends React.Component {
+class Ch7Ex7 extends React.Component {
   canvas = null;
   ctx = null;
 
@@ -36,6 +37,8 @@ class Ch7Ex6 extends React.Component {
   // audio elements
   explodeSound = null;
   shootSound = null;
+  // for Unlimited Dynamic Sound Objects
+  sounds = new Array();
 
   mouseX = null;
   mouseY = null;
@@ -66,7 +69,8 @@ class Ch7Ex6 extends React.Component {
       width: this.missileImage.width,
       height: this.missileImage.height
     });
-    this.shootSound.play();
+    // this.shootSound.play();
+    this.playSound(shootWav, .5);
   };
 
   eventMouseMove = evt => {
@@ -165,7 +169,8 @@ class Ch7Ex6 extends React.Component {
       for (let j = aliens.length - 1; j >= 0; j--) {
         let tempAlien = aliens[j];
         if (this.hitTest(tempMissile, tempAlien)) {
-          this.explodeSound.play();
+          // this.explodeSound.play();
+          this.playSound(explodeWav, .5);
           missiles.splice(i, 1);
           aliens.splice(j, 1);
           break missile;
@@ -204,8 +209,8 @@ class Ch7Ex6 extends React.Component {
 
   resetApp = () => {
     this.startLevel();
-    this.shootSound.volume = 0.5;
-    this.explodeSound.volume = 0.5; // 課本 typo
+    // this.shootSound.volume = 0.5;
+    // this.explodeSound.volume = 0.5;
     this.appState = STATE_PLAYING;
   };
 
@@ -305,20 +310,27 @@ class Ch7Ex6 extends React.Component {
     return retval;
   };
 
+  playSound = (sound, volume) => {
+    let tempSound = document.createElement('audio');
+    tempSound.setAttribute('src', sound);
+    tempSound.loop = false;
+    tempSound.volume = volume;
+    tempSound.play();
+    this.sounds.push(tempSound);
+  }
+
   render() {
     return (
       <div>
         <h2>
           <span style={{ verticalAlign: 'sub', paddingLeft: 8 }}>
-            Space Raiders With Unoptimized Sound
+            Space Raiders Fix #1: Create Unlimited Sounds
           </span>
         </h2>
-        <h5>Playing sound with single object.</h5>
-        <h5>Caveats: sound cannot play until the previous one is finished</h5>
         <canvas width="700" height="500" id="the-canvas" />
       </div>
     );
   }
 }
 
-export default Ch7Ex6;
+export default Ch7Ex7;
