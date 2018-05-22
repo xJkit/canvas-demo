@@ -313,6 +313,8 @@ class Ch7Ex5 extends React.Component {
             Space Raiders With Unoptimized Sound
           </span>
         </h2>
+        <h5>Playing sound with single object.</h5>
+        <h5>Caveats: sound cannot play until the previous one is finished</h5>
         <canvas width="700" height="500" id="the-canvas" />
       </div>
     );

@@ -8,7 +8,7 @@ import './App.css';
 import Home from './containers/Home';
 import BasicExample from './containers/BasicExample';
 import Ch7Ex3 from './containers/Ch7Ex3';
-import Ch7Ex5 from './containers/Ch7Ex5';
+import Ch7Ex6 from './containers/Ch7Ex6';
 
 class App extends Component {
   render() {
@@ -34,8 +34,8 @@ class App extends Component {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/ch7-ex5">
-                Ch7-Ex5
+              <NavLink to="/ch7-ex6">
+                Ch7-Ex6
               </NavLink>
             </li>
           </ul>
@@ -54,8 +54,8 @@ class App extends Component {
               component={Ch7Ex3}
             />
             <Route
-              path="/ch7-ex5"
-              component={Ch7Ex5}
+              path="/ch7-ex6"
+              component={Ch7Ex6}
             />
           </div>
         </div>
